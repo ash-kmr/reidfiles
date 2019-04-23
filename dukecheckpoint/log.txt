@@ -1,0 +1,137 @@
+2019-04-22 17:35:43,237 reid_baseline INFO: Using 1 GPUS
+2019-04-22 17:35:43,238 reid_baseline INFO: Namespace(config_file='configs/softmax_triplet_with_center.yml', opts=['MODEL.DEVICE_ID', "('0')", 'DATASETS.NAMES', "('dukemtmc')", 'DATASETS.ROOT_DIR', "('/home/ashish/Desktop/code/reiddata/')", 'OUTPUT_DIR', "('/home/ashish/Desktop/code/dukecheckpoint')"])
+2019-04-22 17:35:43,238 reid_baseline INFO: Loaded configuration file configs/softmax_triplet_with_center.yml
+2019-04-22 17:35:43,238 reid_baseline INFO: 
+MODEL:
+  PRETRAIN_CHOICE: 'imagenet'
+  PRETRAIN_PATH: '/home/ashish/.torch/models/resnet50-19c8e357.pth'
+  METRIC_LOSS_TYPE: 'triplet_center'
+  IF_LABELSMOOTH: 'on'
+  IF_WITH_CENTER: 'yes'
+
+# logs hai iski?
+
+
+INPUT:
+  SIZE_TRAIN: [256, 128]
+  SIZE_TEST: [256, 128]
+  PROB: 0.5 # random horizontal flip
+  RE_PROB: 0.5 # random erasing
+  PADDING: 10
+
+DATASETS:
+  NAMES: ('dukemtmc')
+
+DATALOADER:
+  SAMPLER: 'softmax_triplet'
+  NUM_INSTANCE: 4
+  NUM_WORKERS: 8
+
+SOLVER:
+  OPTIMIZER_NAME: 'Adam'
+  MAX_EPOCHS: 150
+  BASE_LR: 0.00020
+
+  CLUSTER_MARGIN: 0.3
+
+  CENTER_LR: 0.35
+  CENTER_LOSS_WEIGHT: 0.0004
+
+  RANGE_K: 2
+  RANGE_MARGIN: 0.3
+  RANGE_ALPHA: 0
+  RANGE_BETA: 1
+  RANGE_LOSS_WEIGHT: 1
+
+  BIAS_LR_FACTOR: 1
+  WEIGHT_DECAY: 0.00059
+  WEIGHT_DECAY_BIAS: 0.00059
+  IMS_PER_BATCH: 16
+
+  STEPS: [40, 70]
+  GAMMA: 0.1
+
+  WARMUP_FACTOR: 0.01
+  WARMUP_ITERS: 10
+  WARMUP_METHOD: 'linear'
+
+  CHECKPOINT_PERIOD: 10
+  LOG_PERIOD: 10
+  EVAL_PERIOD: 10
+
+TEST:
+  IMS_PER_BATCH: 16
+  RE_RANKING: 'no'
+  WEIGHT: "path"
+  NECK_FEAT: 'after'
+  FEAT_NORM: 'yes'
+
+OUTPUT_DIR: "/home/karan/Desktop/CV/new/extend-baseline/dukecheckpoint/"
+
+
+
+2019-04-22 17:35:43,238 reid_baseline INFO: Running with config:
+DATALOADER:
+  NUM_INSTANCE: 4
+  NUM_WORKERS: 8
+  SAMPLER: softmax_triplet
+DATASETS:
+  NAMES: dukemtmc
+  ROOT_DIR: /home/ashish/Desktop/code/reiddata/
+INPUT:
+  PADDING: 10
+  PIXEL_MEAN: [0.485, 0.456, 0.406]
+  PIXEL_STD: [0.229, 0.224, 0.225]
+  PROB: 0.5
+  RE_PROB: 0.5
+  SIZE_TEST: [256, 128]
+  SIZE_TRAIN: [256, 128]
+MODEL:
+  DEVICE: cuda
+  DEVICE_ID: 0
+  IF_LABELSMOOTH: on
+  IF_WITH_CENTER: yes
+  LAST_STRIDE: 1
+  METRIC_LOSS_TYPE: triplet_center
+  NAME: resnet50
+  NECK: bnneck
+  PRETRAIN_CHOICE: imagenet
+  PRETRAIN_PATH: /home/ashish/.torch/models/resnet50-19c8e357.pth
+OUTPUT_DIR: /home/ashish/Desktop/code/dukecheckpoint
+SOLVER:
+  BASE_LR: 0.0002
+  BIAS_LR_FACTOR: 1
+  CENTER_LOSS_WEIGHT: 0.0004
+  CENTER_LR: 0.35
+  CHECKPOINT_PERIOD: 10
+  CLUSTER_MARGIN: 0.3
+  EVAL_PERIOD: 10
+  GAMMA: 0.1
+  IMS_PER_BATCH: 16
+  LOG_PERIOD: 10
+  MARGIN: 0.3
+  MAX_EPOCHS: 150
+  MOMENTUM: 0.9
+  OPTIMIZER_NAME: Adam
+  RANGE_ALPHA: 0
+  RANGE_BETA: 1
+  RANGE_K: 2
+  RANGE_LOSS_WEIGHT: 1
+  RANGE_MARGIN: 0.3
+  STEPS: (40, 70)
+  WARMUP_FACTOR: 0.01
+  WARMUP_ITERS: 10
+  WARMUP_METHOD: linear
+  WEIGHT_DECAY: 0.00059
+  WEIGHT_DECAY_BIAS: 0.00059
+TEST:
+  FEAT_NORM: yes
+  IMS_PER_BATCH: 16
+  NECK_FEAT: after
+  RE_RANKING: no
+  WEIGHT: path
+2019-04-22 17:35:46,500 reid_baseline.train INFO: Start training
+2019-04-22 17:36:20,239 reid_baseline.train INFO: Epoch[1] Iteration[10/964] Loss: 21.168, Acc: 0.001, Base Lr: 2.00e-06
+2019-04-22 17:36:38,850 reid_baseline.train INFO: Epoch[1] Iteration[20/964] Loss: 21.159, Acc: 0.001, Base Lr: 2.00e-06
+2019-04-22 17:36:57,438 reid_baseline.train INFO: Epoch[1] Iteration[30/964] Loss: 21.149, Acc: 0.001, Base Lr: 2.00e-06
+2019-04-22 17:37:16,044 reid_baseline.train INFO: Epoch[1] Iteration[40/964] Loss: 21.135, Acc: 0.002, Base Lr: 2.00e-06
